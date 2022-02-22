@@ -1,22 +1,19 @@
 import express from "express";
 import bodyParser from "body-parser";
 import mongoose from "mongoose";
-
-
-mongoose.connect("mongodb+srv://admin:admin@cluster0.aqmhx.mongodb.net/Properties?retryWrites=true&w=majority",{useNewUrlParser:true},()=>{
-    console.log("connected !!!!!")
-})
-
-
+import "dotenv/config";
 
 import usersRoutes from "./routes/users.js";
 
-
+mongoose.connect(process.env.DB_CONNECTION,{useNewUrlParser:true},()=>{
+    console.log("connected !!!!!")
+})
 
 const app = express();
 const PORT = 5000;
 
 app.use(bodyParser.json());
+
 
 app.use("/properties", usersRoutes);
 app.get("/", (req, res) => res.send("Welcome to the Users API!"));
